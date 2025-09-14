@@ -1,14 +1,35 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-import express from 'express';
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import NoteRouter from "./routes/NoteRouter.js";
 
-const app=express();
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then((db) => {
+    console.log("Connected to database");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-app.get("/health",(req,res)=>{
-    res.status(200).json({status:"ok"});
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors());
+
+
+app.use("/notes",NoteRouter);
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
-const port=process.env.PORT || 5000;
-app.listen(port,()=>{
-    console.log('app is running at',port);
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log("app is running at", port);
 });
