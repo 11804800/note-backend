@@ -23,7 +23,7 @@ mongoose
 const app = express();
 
 app.use(cors({
-  origin: 'https://note-frontend-pi.vercel.app', 
+  origin: 'https://note-frontend-alpha.vercel.app/', 
   methods: ['POST',"GET","PUT","DELETE", 'OPTIONS'], 
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true,
