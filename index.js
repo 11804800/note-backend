@@ -22,10 +22,21 @@ mongoose
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://note-frontend-pi.vercel.app', // Correct origin
+  methods: ['POST', 'OPTIONS'], // Important! Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add any custom headers
+  credentials: true, // Important if you are sending cookies
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://note-frontend-pi.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
 
 
 app.use("/notes",NoteRouter);
