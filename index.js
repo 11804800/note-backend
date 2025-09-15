@@ -22,7 +22,13 @@ mongoose
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://note-frontend-pi.vercel.app', 
+  methods: ['POST',"GET","PUT","DELETE", 'OPTIONS'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true,
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
