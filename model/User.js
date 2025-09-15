@@ -19,12 +19,18 @@ const User = new Schema(
     plan: {
       type: String,
       default: "free",
-      ref: "plan",
     },
     tenant: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "tenants",
+      type:String,
+      required:true
     },
+    admin:{
+      type:Boolean,
+      default:false
+    },
+    slug:{
+      type:String
+    }
   },
   {
     timestamps: true,

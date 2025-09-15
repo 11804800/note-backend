@@ -28,8 +28,8 @@ app.use(cors());
 
 app.use("/notes",NoteRouter);
 app.use("/plan",PlanRouter);
-app.use('/tenant',TenantRouter);
-app.use("/user",UserRouter);
+app.use('/tenantType',TenantRouter);
+app.use("/tenants",UserRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });

@@ -2,7 +2,7 @@ import Notes from "../model/Notes.js";
 
 export const getAllNote = async (req, res) => {
   try {
-    const result = await Notes.find({});
+    const result = await Notes.find({user:req.user.user._id});
     res.status(200).json({ result: result });
   } catch (err) {
     res.status(500).json({ err: err.message });
@@ -24,6 +24,7 @@ export const PostNote = async (req, res) => {
     const result = await Notes.create({
       title: title,
       description: description,
+      user:req.user.user._id
     });
     res.status(200).json({ success: true, result: result });
   } catch (err) {
@@ -36,7 +37,10 @@ export const UpdateNote = async (req, res) => {
     const result = await Notes.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body,
+        $set: {
+          title:req.body.title,
+          description:req.body.description
+        },
       },
       { new: true }
     );
