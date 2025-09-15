@@ -5,6 +5,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import NoteRouter from "./routes/NoteRouter.js";
+import PlanRouter from "./routes/PlanRouter.js";
+import TenantRouter from "./routes/TenantRouter.js";
+import UserRouter from "./routes/UserRouter..js";
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -24,6 +27,9 @@ app.use(cors());
 
 
 app.use("/notes",NoteRouter);
+app.use("/plan",PlanRouter);
+app.use('/tenant',TenantRouter);
+app.use("/user",UserRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });

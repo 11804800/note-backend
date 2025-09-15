@@ -1,22 +1,34 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
-const User=new Schema({
-    firstname:{
-        type:String
+const User = new Schema(
+  {
+    firstname: {
+      type: String,
     },
-    lastname:{
-        type:String
+    lastname: {
+      type: String,
     },
-    username:{
-        type:String,
-        required:true
+    username: {
+      type: String,
+      required: true,
     },
-    password:{
-        type:String,
-        required:true
-    }
-},{
-    timestamps:true
-});
+    password: {
+      type: String,
+      required: true,
+    },
+    plan: {
+      type: String,
+      default: "free",
+      ref: "plan",
+    },
+    tenant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "tenants",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default model('user',User);
+export default model("user", User);
