@@ -22,12 +22,27 @@ mongoose
 
 const app = express();
 
-app.use(cors({
-  origin: 'https://note-frontend-alpha.vercel.app/', 
-  methods: ['POST',"GET","PUT","DELETE", 'OPTIONS'], 
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-  credentials: true,
-}));
+const allowedOrigins = [
+  'https://note-frontend-alpha.vercel.app'
+];
+
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],  
+  credentials: true,   
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
