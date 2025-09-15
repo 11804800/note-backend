@@ -48,11 +48,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 
+
 app.use("/notes",NoteRouter);
 app.use("/plan",PlanRouter);
 app.use('/tenantType',TenantRouter);
 app.use("/tenants",UserRouter);
 
+app.get("/", (req, res) => {
+  res.send("<h1>Welcome to Express</h1>")
+});
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
