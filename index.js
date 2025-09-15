@@ -23,11 +23,12 @@ mongoose
 const app = express();
 
 app.use(cors({
-  origin: 'https://note-frontend-pi.vercel.app', // Correct origin
-  methods: ['POST', 'OPTIONS'], // Important! Specify allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Add any custom headers
-  credentials: true, // Important if you are sending cookies
+  origin: 'https://note-frontend-pi.vercel.app', 
+  methods: ['POST',"GET","PUT","DELETE", 'OPTIONS'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true,
 }));
+app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
